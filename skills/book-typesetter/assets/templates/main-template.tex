@@ -1,0 +1,27 @@
+% Machiavelli - The Prince (English Edition)
+\documentclass[a5paper, 12pt, oneside, openright]{memoir}
+\usepackage{prelude-en}
+
+\includeonly{%
+    chapters-en,
+    info-en,
+    titlepage-en,
+    dedication,
+}
+
+\begin{document}
+
+\frontmatter
+\include{titlepage-en}
+\include{info-en}
+\tableofcontents
+\include{dedication}
+
+\mainmatter
+\setcounter{page}{1}
+\include{chapters-en}
+
+\backmatter
+\cleardoublepage
+
+\end{document}

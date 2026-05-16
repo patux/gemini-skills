@@ -1,0 +1,165 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% This package takes care of setting up the preamble for the entire
+% document.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{prelude}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%    PACKAGES TO LOAD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage[T1]{fontenc}
+\RequirePackage{titlesec}
+\RequirePackage[scale=0.92]{tgschola}
+\RequirePackage{calrsfs}
+\RequirePackage{babel}
+\RequirePackage{csquotes}
+\RequirePackage{endnotes}
+\RequirePackage{lettrine}
+\RequirePackage{listings}
+\RequirePackage[rgb,hyperref,svgnames]{xcolor}
+\RequirePackage{pdfpages}
+\RequirePackage[oldstylenums]{kpfonts}
+\RequirePackage{microtype}
+\RequirePackage{textcase}
+
+% Load hyperref package last
+\RequirePackage{hyperref}
+
+\renewcommand{\sfdefault}{qcs} % qcs is the font name for Tex Gyre Schola
+\renewcommand{\familydefault}{\sfdefault}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%    PACKAGE SETTINGS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Hyperref: settings
+\hypersetup{pdfborder={0 0 0}, colorlinks=false}
+
+% Listings
+% Register listings
+\begingroup%
+\makeatletter%
+\let\newcounter\@gobble\let\setcounter\@gobbletwo%
+  \globaldefs\@ne \let\c@loldepth\@ne%
+  \newlistof{listings}{lol}{\lstlistlistingname}%
+  \newlistentry{lstlisting}{lol}{0}%
+\endgroup%
+\makeatletter%
+\g@addto@macro\insertchapterspace%
+  {\addtocontents{lol}{\protect\addvspace{10pt}}}%
+\makeatother%
+\makeatletter%
+\AtBeginDocument{\addtocontents{lol}{\protect\addvspace{10\p@}}}%
+\makeatother
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%    DOCUMENT CUSTOMIZATIONS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Set left and right margins
+\setlrmarginsandblock{1.5cm}{1.5cm}{*}
+\setulmarginsandblock{2cm}{*}{1}
+\checkandfixthelayout 
+
+% Rules
+\newcommand{\thinRule}{\rule{\textwidth}{0.50pt}}
+
+% Subtitle command
+\newcommand{\subtitle}[1]{%
+  \begin{flushleft}
+    \normalfont\large\scshape #1
+    \vspace*{2ex}
+  \end{flushleft}
+}
+
+% Customize heading appearances
+% Define styles
+\newcommand{\chapterSize}{\large}
+\newcommand{\chapterStyle}{\lsstyle\scshape}
+\newcommand{\chapterAfter}{\vspace*{0.05ex}\thinRule}
+\newcommand{\sectionSize}{\large}
+\newcommand{\sectionStyle}{\lsstyle\scshape\bfseries\MakeTextLowercase}
+\newlength{\chapterNumSizePt}
+\setlength{\chapterNumSizePt}{40pt}
+\newcommand{\chapterNumSize}{%
+  \fontsize{\chapterNumSizePt}{1.2\chapterNumSizePt}\selectfont%
+}
+\newcommand{\chapterNumStyle}{\partChapterNumColor}
+
+% Customize chapters
+\renewcommand{\thechapter}{\Roman{chapter}}
+\makeatletter
+\setlength{\beforechapskip}{-30pt}
+\renewcommand*{\chapterheadstart}{\vspace*{\beforechapskip}}
+\setlength{\afterchapskip}{0.05ex}
+\setlength{\midchapskip}{0.05ex}
+\renewcommand*{\chapnamefont}{%
+  \Large\flushleft\chapterStyle\partChapterNumColor%
+}
+\renewcommand*{\chapnumfont}{\chapterNumSize\chapterNumStyle}
+\renewcommand*{\chaptitlefont}{%
+  \normalfont\flushleft\normalcolor\chapterSize\chapterStyle%
+}
+\renewcommand*{\printchaptername}{%
+  \chapnamefont\MakeTextLowercase{\@chapapp}%
+}
+\renewcommand*{\chapternamenum}{\quad}
+\renewcommand*{\printchapternum}{%
+  \chapnumfont\textls[-75]{\classicstylenums{\thechapter}}%
+}
+\renewcommand*{\printchaptertitle}[1]{%
+  \chaptitlefont #1
+  \chapterAfter
+}
+\makeatother
+
+% Customize ToC headings
+\renewcommand{\cftpartfont}{\partChapterNumColor\partStyle}
+\renewcommand{\cftchapterfont}{\chapterStyle}
+\renewcommand{\cftsectionfont}{}
+\renewcommand{\cftsubsectionfont}{}
+\renewcommand{\cftfigurefont}{}
+\renewcommand{\cfttablefont}{}
+\renewcommand{\cftlstlistingfont}{}
+% Increase number width
+\newlength{\cftNumWidthIncrease}
+\setlength{\cftNumWidthIncrease}{1.5em}
+\addtolength{\cftpartnumwidth}{\cftNumWidthIncrease}
+\addtolength{\cftchapternumwidth}{\cftNumWidthIncrease}
+\addtolength{\cftsectionindent}{\cftNumWidthIncrease}
+\addtolength{\cftsubsectionindent}{\cftNumWidthIncrease}
+
+% Customize page numbers
+\newcommand{\tocPageStyle}{\tocPageColor}
+\renewcommand{\cftpartpagefont}{\tocPageStyle}
+\renewcommand{\cftchapterpagefont}{\tocPageStyle}
+\renewcommand{\cftsectionpagefont}{\tocPageStyle}
+\renewcommand{\cftsubsectionpagefont}{\tocPageStyle}
+\renewcommand{\cftfigurepagefont}{\tocPageStyle}
+\renewcommand{\cfttablepagefont}{\tocPageStyle}
+\renewcommand{\cftlstlistingpagefont}{\tocPageStyle}
+
+% Clear style for title page (no header nor footer)
+\pagestyle{plain}
+\makepagestyle{titlepage}
+
+% Customize drop caps
+\setcounter{DefaultLines}{2}
+\renewcommand{\LettrineFontHook}{\dropCapColor}
+\renewcommand{\DefaultFindent}{0pt}
+\renewcommand{\DefaultNindent}{0pt}
+\renewcommand{\LettrineTextFont}{\rmfamily} % make letters after cap lowercase
+
+% Define colors
+\newcommand{\titleColor}{\color[HTML]{9D102D}}
+\newcommand{\chapterColor}{\color[HTML]{3283EE}}
+\newcommand{\booktitleColor}{\color[HTML]{00529B}}
+\newcommand{\partChapterNumColor}{\chapterColor}
+\newcommand{\dropCapColor}{\titleColor}
+\newcommand{\tocPageColor}{\titleColor}
