@@ -5,7 +5,7 @@ description: Professional multilingual book typesetting for PDF and EPUB using L
 
 # Book Typesetter
 
-This skill provides a comprehensive workflow and asset set for creating professional books (PDF and EPUB) from raw text or LaTeX source.
+This skill provides a comprehensive workflow and asset set for creating professional books (PDF and EPUB) from raw text or LaTeX source. Use only when needed.
 
 ## Workflow
 
@@ -37,4 +37,5 @@ This skill provides a comprehensive workflow and asset set for creating professi
 - **Multi-Pass Builds:** Always build multiple times to ensure Table of Contents and links are synchronized.
 - **UTF-8:** Ensure all source files use UTF-8 encoding to support multilingual characters.
 - **Clean Workspace:** Regularly use `make clean` to remove transient `.aux`, `.log`, and `.toc` files.
-- **History Management:** Never commit large source PDFs or temporary extraction scripts to the repository history.
+- **History Management:** Never commit large source PDFs
+- **Auxilary Scripts:** Analize scripts created on the skill under skills/ and improve or add more if needed.
